@@ -8,8 +8,8 @@ The purpose of the project is to select and categorize books you have read, are 
     * npm install
     * npm start
 
-## App Functionality
-### Main Page
+## Functionality
+### Home Page
 The main page will show a list of shelves which contain a number of books.
 The shelves are:
 * Currently Reading

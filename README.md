@@ -22,3 +22,6 @@ Each book has a control which allows the user to change it between shelves.
 The search page has a text input that may be used to find books. The books will be filtered as the user introduces characters. 
 
 Once filtered the user may manage each book, adjusting the shelve where it should go.
+
+## Copyright and License
+A Project [starter code](https://github.com/udacity/reactnd-project-myreads-starter) contributed by Udacity.

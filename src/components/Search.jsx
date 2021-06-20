@@ -6,29 +6,32 @@ import Error from './Error';
 
 
 const Search = (props) => {
-    const [searchedbooks, setSearchedBooks] = useState([]);
+    const [books, setBooks] = useState([]);
     const [query, setQuery] = useState('');
-    const { books, handleShelfChange } = props;
+    const {handleShelfChange } = props;
 
     const updateQuery = query => {
             setQuery(query)
-            BooksAPI.search(query).then(searchResult => {             
-                if(searchResult && searchResult.length > 0) {
-                    for(let i=0; i < searchResult.length; i++){
-                        for(let b=0; b < books.length; b++) {
-                            if (searchResult[i].id === books[b].id){
-                                const indexed = books.findIndex(iBook => iBook.id === searchResult[i].id) 
-                                searchResult[i].shelf = books[indexed].shelf
-                            }                      
-                        }
-                    }                
-                } 
-
-                setSearchedBooks(searchResult)
-
-            }).catch(error => {
-                console.log(error);
-            })
+            if(query.length === 0) {
+                setBooks({books: []})
+            } else {
+                BooksAPI.search(query).then(searchResult => {             
+                    if(searchResult && searchResult.length > 0) {
+                        for(let i=0; i < searchResult.length; i++){
+                            for(let b=0; b < books.length; b++) {
+                                if (searchResult[i].id === books[b].id){
+                                    const indexed = books.findIndex(iBook => iBook.id === searchResult[i].id) 
+                                    searchResult[i].shelf = books[indexed].shelf
+                                }                      
+                            }
+                        }                
+                    }
+                    setBooks(searchResult)                
+                })
+                .catch(err=>{
+                    console.log(err)                
+                })
+            }
                 
         }
         
@@ -57,23 +60,28 @@ const Search = (props) => {
                 </div>
             </div>
             <div className="search-books-results">
-            {query === '' || searchedbooks.length === 0 ? <Error /> :
-                searchedbooks &&
-                searchedbooks.length > 0 && (          
+                {books &&
+                books.length === 0 && (
+                    <Error /> 
+                )}
+                {books &&
+                books.length > 0 && (          
                 <div>
-                    <h2 style={{colro:'#333', textAlign:'center'}}>Showing {searchedbooks.length} matches for <span className="color-green">' {query} '</span></h2>
+                    <h2 style={{colro:'#333', textAlign:'center'}}>Showing {books.length} matches for <span className="color-green">' {query} '</span></h2>
                     <ol className="books-grid">
-                        {searchedbooks.map(book => (
+                        {books.map(book => (
                                 <Book
                                     key={book.id}
                                     book = {book}
-                                    books = {searchedbooks}
+                                    books = {books}
                                     handleShelfChange={handleShelfChange}
                                 />
                         ))}                    
                     </ol> 
                 </div>
-                )}   
+                )}
+                
+                
                                
             </div>
         </div>

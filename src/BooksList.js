@@ -6,10 +6,28 @@ import PropTypes from 'prop-types';
 
 const BooksList = (props) => {
 const { books, handleShelfChange } = props;
-  let currentlyReadingShelf = books.filter(b=>b.shelf === "currentlyReading");
-  let wantToReadShelf = books.filter(b=>b.shelf === "wantToRead");
-  let readShelf = books.filter(b=>b.shelf === "read");
+  // let currentlyReadingShelf = books.filter(b=>b.shelf === "currentlyReading");
+  // let wantToReadShelf = books.filter(b=>b.shelf === "wantToRead");
+  // let readShelf = books.filter(b=>b.shelf === "read");
 
+  const shelves = [
+    {
+      title: 'Currently Reading',
+      shelf: 'currentlyReading',
+      books : books.filter(b=>b.shelf === "currentlyReading")
+    },
+    {
+      title: 'Want to Read',
+      shelf: 'wantToRead',
+      books : books.filter(b=>b.shelf === "wantToRead")
+    },
+    {
+      title: 'Read',
+      shelf: 'read',
+      books: books.filter(b=>b.shelf === "read")
+    }
+  ];
+  
   return (
     <>
        <div className="list-books">
@@ -17,24 +35,15 @@ const { books, handleShelfChange } = props;
                   <h1>MyReads</h1>
               </div>
               <div className="list-books-content">
+              {shelves.map(item =>  (
                 <BookShelf 
-                    shelfTitle="Currently Reading"
-                    name= "currentlyReading"
-                    books= {currentlyReadingShelf}
+                    key = {item.shelf}
+                    shelfTitle= {item.title}
+                    books= {item.books}
+                    shelf = {item.shelf}
                     handleShelfChange = {handleShelfChange}
                 />
-                <BookShelf 
-                    shelfTitle="Want to Read"
-                    name= "wantToRead"
-                    books= {wantToReadShelf}
-                    handleShelfChange = {handleShelfChange}
-                />
-                <BookShelf 
-                    shelfTitle="Read"
-                    name="read"
-                    books= {readShelf}
-                    handleShelfChange = {handleShelfChange}
-                />
+              ))}
               </div>
               <div className="open-search">
                 <Link to="/search">

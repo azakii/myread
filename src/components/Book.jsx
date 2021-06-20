@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 
 const Book = (props) => {
     
-    const { book, books, handleShelfChange } = props;
+    const { book, books, shelf, handleShelfChange } = props;
 
     return (
         <>
@@ -16,7 +16,7 @@ const Book = (props) => {
                         ${book.imageLinks ? book.imageLinks.smallThumbnail : ""}
                     )` }}></div>
                     <div className="book-shelf-changer">
-                        <BookShelfChanger books={books} book={book} handleShelfChange={handleShelfChange} />
+                        <BookShelfChanger books={books} book={book} shelf ={shelf} handleShelfChange={handleShelfChange} />
                     </div>
                     </div>
                     <div className="book-title">{book.title}</div>

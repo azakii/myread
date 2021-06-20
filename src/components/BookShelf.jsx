@@ -6,8 +6,9 @@ import PropTypes from 'prop-types';
 
 const BookShelf = (props) => {
     
-    const { books, shelfTitle, handleShelfChange } = props;
+    const { books, shelfTitle, handleShelfChange, shelf } = props;
     // console.log(books)
+    // console.log({shelf})
     return (
         <div>
             
@@ -17,9 +18,10 @@ const BookShelf = (props) => {
                     <ol className="books-grid">
                     {books.map(book=>
                             <Book 
+                                key={book.id}
                                 books= {books}
                                 book = {book}
-                                key={book.id}
+                                shelf = {shelf}
                                 handleShelfChange={handleShelfChange}
                             />
                     )}

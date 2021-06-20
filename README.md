@@ -2,14 +2,14 @@
 
 The purpose of the project is to select and categorize books you have read, are currently reading, or want to read, the project emphasizes using React to build the application and provides an API server and client library that you will use to persist information as you interact with the application.
 
-## Installation
+## How to install the project?
 * Clone or download the repository
 * On the root folder of the project run:
     * npm install
     * npm start
 
-## App Functionality
-### Main Page
+## Overview
+### Home Page
 The main page will show a list of shelves which contain a number of books.
 The shelves are:
 * Currently Reading

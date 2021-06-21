@@ -8,25 +8,32 @@ import Error from './Error';
 const Search = (props) => {
     const [books, setBooks] = useState([]);
     const [query, setQuery] = useState('');
-    const {handleShelfChange } = props;
+    
+    const {storedBooks, shelf, handleShelfChange } = props;
 
     const updateQuery = query => {
             setQuery(query)
             if(query.length === 0) {
-                setBooks({books: []})
+                setBooks([])
             } else {
                 BooksAPI.search(query).then(searchResult => {             
-                    if(searchResult && searchResult.length > 0) {
-                        for(let i=0; i < searchResult.length; i++){
-                            for(let b=0; b < books.length; b++) {
-                                if (searchResult[i].id === books[b].id){
-                                    const indexed = books.findIndex(iBook => iBook.id === searchResult[i].id) 
-                                    searchResult[i].shelf = books[indexed].shelf
-                                }                      
-                            }
-                        }                
-                    }
-                    setBooks(searchResult)                
+
+
+                    if (searchResult && searchResult.length > 0) {
+                        //     for (let i = 0; i < searchResult.length; i++) {
+                        //         for (let j = 0; j < storedBooks.length; j++) {
+                        //             if (searchResult[i].id === storedBooks[j].id) {
+                        //                 const shelvedBookIndex = storedBooks.findIndex((book) => book.id === searchResult[i].id)
+                        //                 searchResult[i].shelf = storedBooks[shelvedBookIndex].shelf
+                        //             }
+                        //         }
+                        //     }                        
+                        searchResult.map(book => (storedBooks.filter((bo) => bo.id === book.id).map(b => book.shelf = b.shelf)))
+
+                    }    
+
+                    setBooks(searchResult)       
+                    
                 })
                 .catch(err=>{
                     console.log(err)                
@@ -36,8 +43,6 @@ const Search = (props) => {
         }
         
 
-
-    
     return (
     
         <div className="search-books">
@@ -74,6 +79,7 @@ const Search = (props) => {
                                     key={book.id}
                                     book = {book}
                                     books = {books}
+                                    shelf= {shelf}
                                     handleShelfChange={handleShelfChange}
                                 />
                         ))}                    

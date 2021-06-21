@@ -8,7 +8,6 @@ const BookShelf = (props) => {
     
     const { books, shelfTitle, handleShelfChange, shelf } = props;
     // console.log(books)
-    // console.log({shelf})
     return (
         <div>
             

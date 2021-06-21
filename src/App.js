@@ -9,7 +9,8 @@ import * as BooksAPI from './utils/BooksAPI'
 export default function BooksApp() {
 
   const [books, setBooks] = useState([]);
-
+  const [flip, setFlip] = useState(false);
+  
   useEffect(() => {    
     BooksAPI.getAll().then(Books => setBooks(Books))
     .catch(err=>{
@@ -23,7 +24,7 @@ export default function BooksApp() {
       // console.log('newBook :' + newBook, 'newShelf :' + newShelf)
       const updatedBooks = [...books.filter(({ id }) => id !== newBook.id), newBook]
       setBooks(updatedBooks);
-      
+      setFlip(!flip)
     });
   };
   
@@ -35,7 +36,7 @@ export default function BooksApp() {
               <BooksList books={books} handleShelfChange={handleShelfChange} />
             )}/>
           <Route path="/search" render={() => (
-              <Search books={books} handleShelfChange={handleShelfChange} />
+              <Search storedBooks={books} handleShelfChange={handleShelfChange} />
             )}/>
       </div>
   )

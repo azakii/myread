@@ -10,7 +10,7 @@ const BookShelfChanger = (props) => {
         let currentShelf = book.shelf;
         // console.log(currentShelf)
         if (!('shelf' in book)) {
-            book.shelf = 'move'
+            book.shelf = 'none'
         }     
            
         for (let item of books) {
